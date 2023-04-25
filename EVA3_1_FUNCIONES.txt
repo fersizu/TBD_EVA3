@@ -1,0 +1,163 @@
+MySQL Shell 8.0.31
+
+Copyright (c) 2016, 2022, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > connect --mc root@localhost
+ERROR: Not connected.
+           -> \connect --mc root@localhost
+           -> ^C
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.31 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| agencia            |
+| bdpendientes       |
+| comp2              |
+| company            |
+| eva_2              |
+| evaluacion_1       |
+| information_schema |
+| mysql              |
+| ordenes            |
+| peliculas          |
+| performance_schema |
+| proyecto           |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+15 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  SQL > select user form mysql.user;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql.user' at line 1
+ MySQL  localhost:3306 ssl  SQL > select user from mysql.user;
++------------------+
+| user             |
++------------------+
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| prueba           |
+| prueba2          |
+| prueba3          |
+| root             |
++------------------+
+7 rows in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  SQL > show grants for'prueba'@'localhost';
++--------------------------------------------+
+| Grants for prueba@localhost                |
++--------------------------------------------+
+| GRANT USAGE ON *.* TO `prueba`@`localhost` |
++--------------------------------------------+
+1 row in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  SQL > create database eva_3ñ
+                               -> ^C
+ MySQL  localhost:3306 ssl  SQL > create database eva_3;
+Query OK, 1 row affected (0.0038 sec)
+ MySQL  localhost:3306 ssl  SQL > \use eva_3
+Default schema set to `eva_3`.
+Fetching global names, object names from `eva_3` for auto-completion... Press ^C to stop.
+ localhost:3306 ssl  SQL > select regresa_uno();
++---------------+
+| regresa_uno() |
++---------------+
+|             1 |
++---------------+
+1 row in set (0.0015 sec)
+ localhost:3306 ssl  SQL > select regresa_mensaje                          select regresa_mensaje();
+ERROR: 1318 (42000): Incorrect number of arguments for FUNCTION eva_3.regresa_mensaje; expected 1, got 0
+ localhost:3306 ssl  SQL > select regresa_mensaje();
+ERROR: 1318 (42000): Incorrect number of arguments for FUNCTION eva_3.regresa_mensaje; expected 1, got 0
+ localhost:3306 ssl  SQL > select regresa_mensaje;
+ERROR: 1054 (42S22): Unknown column 'regresa_mensaje' in 'field list'
+ localhost:3306 ssl  SQL > select regresa_mensaje('Erick Siqueiros ');
++-------------------------------------+
+| regresa_mensaje('Erick Siqueiros ') |
++-------------------------------------+
+| holaErick Siqueiros                 |
++-------------------------------------+
+1 row in set (0.0003 sec)
+ localhost:3306 ssl  SQL > select regresa_mensaje('Erick Siqueiros ') as mensaje;
++----------------------+
+| mensaje              |
++----------------------+
+| holaErick Siqueiros  |
++----------------------+
+1 row in set (0.0003 sec)
+ localhost:3306 ssl  SQL > select regresa_mensaje('Erick Siqueiros ') as mensaje;
++----------------------+
+| mensaje              |
++----------------------+
+| holaErick Siqueiros  |
++----------------------+
+1 row in set (0.0003 sec)
+ localhost:3306 ssl  SQL > select regresa_mensaje(' Erick Siqueiros ') as mensaje;
++-----------------------+
+| mensaje               |
++-----------------------+
+| hola Erick Siqueiros  |
++-----------------------+
+1 row in set (0.0003 sec)
+ localhost:3306 ssl  SQL >
+ localhost:3306 ssl  SQL > \use sakila
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ localhost:3306 ssl  SQL > desc customer;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| customer_id | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| store_id    | tinyint unsigned  | NO   | MUL | NULL              |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| email       | varchar(50)       | YES  |     | NULL              |                                               |
+| address_id  | smallint unsigned | NO   | MUL | NULL              |                                               |
+| active      | tinyint(1)        | NO   |     | 1                 |                                               |
+| create_date | datetime          | NO   |     | NULL              |                                               |
+| last_update | timestamp         | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+9 rows in set (0.0012 sec)
+ localhost:3306 ssl  SQL > select count(*) from actor;
++----------+
+| count(*) |
++----------+
+|      200 |
++----------+
+1 row in set (0.0057 sec)
+ localhost:3306 ssl  SQL > \use eva_3
+Default schema set to `eva_3`.
+Fetching global names, object names from `eva_3` for auto-completion... Press ^C to stop.
+ localhost:3306 ssl  SQL > create table actor select * from sakila.actor;
+Query OK, 200 rows affected (0.0125 sec)
+
+Records: 200  Duplicates: 0  Warnings: 0
+ localhost:3306 ssl  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   |     | 0                 |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   |     | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0015 sec)
+ localhost:3306 ssl  SQL > select contar_actor() as actores;
++---------+
+| actores |
++---------+
+|     200 |
++---------+
+1 row in set (0.0015 sec)
+ localhost:3306 ssl  SQL >
+
+
