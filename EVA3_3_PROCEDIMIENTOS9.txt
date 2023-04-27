@@ -1,0 +1,8 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `ultimo_actorid`() RETURNS int
+    READS SQL DATA
+    DETERMINISTIC
+begin
+	declare actorid int;
+    select max(actor_id) into actorid from actor;
+    return actorid;
+end
